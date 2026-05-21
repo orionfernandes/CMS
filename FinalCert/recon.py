@@ -1,5 +1,3 @@
-# Reconciliation script for FC daily adds-clears covering Chase & DB exceptions
-
 import pandas as pd
 import os
 import glob
@@ -10,11 +8,11 @@ from openpyxl.styles import Font, Alignment
 from openpyxl.utils.exceptions import InvalidFileException
 
 # --- Configuration Variables ---
-CHASE_FOLDER = r'PATH TO CHASE FOLDER'
-DB_FOLDER = r'PATH TO DB FOLDER'
-SUMMARY_REPORT_PATH = r'PATH TO UPDATE SUMMARY REPORT'
-IMPORT_FOLDER_PATH = r'PATH TO CREATE SMARTSHEET IMPORTS' 
-ACCUMULATIVE_BASE_DIR = r'PATH TO UPDATE ACCUMULATIVE CLEARS'
+CHASE_FOLDER = r'c:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/Daily Pipelines'
+DB_FOLDER = r'c:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/DB Pipelines'
+SUMMARY_REPORT_PATH = r'C:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/test/Summary_Report.xlsx'
+IMPORT_FOLDER_PATH = r'C:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/test/FC Imports' 
+ACCUMULATIVE_BASE_DIR = r'C:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/test/Accumulative_Clears'
 BACKUP_DIR = os.path.join(ACCUMULATIVE_BASE_DIR, 'Backups')
 
 os.makedirs(ACCUMULATIVE_BASE_DIR, exist_ok=True)
@@ -178,7 +176,7 @@ def update_todays_clears_tab(c_clears_df, d_clears_df, cleared_date_obj):
 
 def format_adds_for_import(adds_df, client_type, today_date_str):
     headers = [
-        'Unique ID', 'Loan Number', 'Settlement Date', 'Pool ID', 'Loan Status', 
+        'Unique ID', 'Loan Number', 'Collateral Key', 'Settlement Date', 'Pool ID', 'Loan Status', 
         'Repool Investor', 'Prior Loan Number', 'Balance Principal', 'Responsible Party', 
         'Document Exception Status', 'Doctype Code', 'Doctype Descr', 'Doc Notation', 
         'Doc Status', 'Question Code', 'Question Descr', 'Question Notation', 
@@ -191,6 +189,7 @@ def format_adds_for_import(adds_df, client_type, today_date_str):
     if client_type == 'Chase':
         output_df['Unique ID'] = adds_df.get('Unique ID')
         output_df['Loan Number'] = adds_df.get('Collateral Key')
+        output_df['Collateral Key'] = adds_df.get('Collateral Key')
         output_df['Settlement Date'] = adds_df.get('Settlement Date')
         output_df['Pool ID'] = adds_df.get('Pool Number')
         output_df['Loan Status'] = adds_df.get('Loan Status Current')
@@ -204,6 +203,7 @@ def format_adds_for_import(adds_df, client_type, today_date_str):
     elif client_type == 'DB':
         output_df['Unique ID'] = adds_df.get('Unique ID')
         output_df['Loan Number'] = adds_df.get('Investor Collateral Key')
+        output_df['Collateral Key'] = adds_df.get('Collateral Key')
         output_df['Settlement Date'] = adds_df.get('Settlement Date')
         output_df['Pool ID'] = adds_df.get('DB Pool Key')
         output_df['Loan Status'] = adds_df.get('Loan Status Current')
