@@ -8,11 +8,11 @@ from openpyxl.styles import Font, Alignment
 from openpyxl.utils.exceptions import InvalidFileException
 
 # --- Configuration Variables ---
-CHASE_FOLDER = r'c:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/Daily Pipelines'
-DB_FOLDER = r'c:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/DB Pipelines'
-SUMMARY_REPORT_PATH = r'C:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/test/Summary_Report.xlsx'
-IMPORT_FOLDER_PATH = r'C:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/test/FC Imports' 
-ACCUMULATIVE_BASE_DIR = r'C:/Users/OFernandes/Downloads/New folder (2)/New folder (2)/test/Accumulative_Clears'
+CHASE_FOLDER = r'CHASE FOLDER PATH'
+DB_FOLDER = r'DB FOLDER PATH'
+SUMMARY_REPORT_PATH = r'SUMMARY REPORT GENERATION PATH'
+IMPORT_FOLDER_PATH = r'IMPORT REPORT GENERATION PATH' 
+ACCUMULATIVE_BASE_DIR = r'ACCUMULATIVE CLEARS GENERATION PATH'
 BACKUP_DIR = os.path.join(ACCUMULATIVE_BASE_DIR, 'Backups')
 
 os.makedirs(ACCUMULATIVE_BASE_DIR, exist_ok=True)
